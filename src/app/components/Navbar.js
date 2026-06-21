@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useCart } from "../context/CartContext";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { cart } = useCart();
 
   const linkStyle = (path) =>
     `relative px-1 py-1 transition ${
@@ -23,17 +25,12 @@ export default function Navbar() {
       
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
         
-     
         <Link href="/" className="flex items-center gap-2 group">
-          <span className="text-2xl transition-transform group-hover:rotate-12">
-           
-          </span>
           <h1 className="text-2xl font-extrabold tracking-wide">
             Rocket Pizza
           </h1>
         </Link>
 
-        
         <div className="flex items-center gap-8 text-sm font-medium">
           
           <Link href="/" className={`group ${linkStyle("/")}`}>
@@ -46,6 +43,11 @@ export default function Navbar() {
             <span className={underline("/carta")}></span>
           </Link>
 
+          <Link href="/productos" className={`group ${linkStyle("/productos")}`}>
+            Productos
+            <span className={underline("/productos")}></span>
+          </Link>
+
           <Link href="/sucursales" className={`group ${linkStyle("/sucursales")}`}>
             Sucursales
             <span className={underline("/sucursales")}></span>
@@ -54,6 +56,13 @@ export default function Navbar() {
           <Link href="/contacto" className={`group ${linkStyle("/contacto")}`}>
             Contacto
             <span className={underline("/contacto")}></span>
+          </Link>
+          
+          <Link
+            href="/carrito"
+            className="bg-yellow-300 text-black px-3 py-1 rounded-full font-bold shadow-md hover:bg-yellow-400 transition"
+          >
+            Pedidos: {cart.length}
           </Link>
 
         </div>
