@@ -55,7 +55,7 @@ export default function Carrito() {
 
           <div className="mt-8 text-right">
             <h2 className="text-2xl font-bold">
-              Total: ${total}
+              Total:{total}
             </h2>
           </div>
         </>

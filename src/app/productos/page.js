@@ -1,3 +1,5 @@
+import PizzaCard from "../components/PizzaCard";
+
 export default async function Productos() {
 
   const response = await fetch(
@@ -5,34 +7,37 @@ export default async function Productos() {
   );
 
   const data = await response.json();
-  const pizzas = data.meals;
+  const pizzasApi = data.meals || [];
+
+  
+  const pizzas = pizzasApi.map((meal) => ({
+    nombre: meal.strMeal,
+    descripcion: meal.strInstructions
+      ? meal.strInstructions.slice(0, 80) + "..."
+      : "Deliciosa pizza de la casa.",
+    precio: "3500",
+  }));
 
   return (
     <main className="max-w-6xl mx-auto p-6">
 
-      <h1 className="text-4xl font-bold mb-8 text-center">
+      <h1 className="text-4xl font-bold mb-2 text-center">
         Especialidades de la Casa
       </h1>
 
+      <p className="text-center text-gray-500 mb-8">
+        Pizzas traídas desde nuestra API
+      </p>
+
       <div className="grid md:grid-cols-3 gap-6">
 
-        {pizzas.map((pizza) => (
-          <div
-            key={pizza.idMeal}
-            className="bg-white rounded-xl shadow-lg p-4"
-          >
-
-            <img
-              src={pizza.strMealThumb}
-              alt={pizza.strMeal}
-              className="h-48 w-full object-cover rounded-lg"
-            />
-
-            <h2 className="font-bold mt-4">
-              {pizza.strMeal}
-            </h2>
-
-          </div>
+        {pizzas.map((pizza, index) => (
+          <PizzaCard
+            key={index}
+            nombre={pizza.nombre}
+            descripcion={pizza.descripcion}
+            precio={pizza.precio}
+          />
         ))}
 
       </div>

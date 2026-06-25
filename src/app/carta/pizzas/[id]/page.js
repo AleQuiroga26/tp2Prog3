@@ -1,3 +1,6 @@
+import Link from "next/link";
+import BotonAgregarDetalle from "../../../components/BotonAgregarDetalle";
+
 export default async function PizzaDetalle({ params }) {
   const pizzas = {
     muzzarella: {
@@ -51,17 +54,15 @@ export default async function PizzaDetalle({ params }) {
             </p>
           </div>
 
-          <button className="w-full bg-red-500 text-white py-3 rounded-xl font-semibold hover:bg-red-600 transition shadow-md hover:shadow-lg">
-            🍕 Pedir ahora
-          </button>
+          <BotonAgregarDetalle pizza={{ nombre: pizza.nombre, descripcion: pizza.desc, precio: pizza.precio }} />
 
           <div className="text-center mt-4">
-            <a
+            <Link
               href="/carta/pizzas"
               className="text-gray-200 text-sm hover:text-white transition"
             >
               ← Volver al menú
-            </a>
+            </Link>
           </div>
 
         </div>
