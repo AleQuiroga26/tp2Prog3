@@ -43,11 +43,6 @@ export default function Navbar() {
             <span className={underline("/carta")}></span>
           </Link>
 
-          <Link href="/productos" className={`group ${linkStyle("/productos")}`}>
-            Productos
-            <span className={underline("/productos")}></span>
-          </Link>
-
           <Link href="/sucursales" className={`group ${linkStyle("/sucursales")}`}>
             Sucursales
             <span className={underline("/sucursales")}></span>

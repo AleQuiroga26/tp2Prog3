@@ -1,68 +1,52 @@
-import Link from "next/link";
+import PizzaCard from "../components/PizzaCard";
 
-export default function Carta() {
+export default async function Carta() {
+
+  const response = await fetch(
+    "https://www.themealdb.com/api/json/v1/1/search.php?s=pizza"
+  );
+
+  const data = await response.json();
+  const pizzasApi = data.meals || [];
+
+  const pizzas = pizzasApi.map((meal) => ({
+    id: meal.idMeal,
+    nombre: meal.strMeal,
+    imagen: meal.strMealThumb,
+    descripcion: meal.strInstructions
+      ? meal.strInstructions.slice(0, 90) + "..."
+      : "Deliciosa pizza de la casa.",
+    precio: "3500",
+  }));
+
   return (
-    <div className="min-h-screen relative flex items-center justify-center">
-      
+    <div className="min-h-screen bg-gray-50 py-12 px-6">
 
-      <div
-        className="absolute inset-0 bg-cover bg-center blur-md scale-110"
-        style={{ backgroundImage: "url('/pizza1.jpg')" }}
-      ></div>
+      <div className="max-w-6xl mx-auto">
 
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-
-
-      <div className="relative z-10 w-full max-w-xl px-6">
-        
-        <h1 className="text-4xl font-extrabold mb-2 text-white text-center">
+        <h1 className="text-4xl font-extrabold text-center mb-2 text-gray-800">
           🍕 Nuestra Carta
         </h1>
 
-        <p className="text-gray-300 text-center mb-8">
-          Elegí lo que más te guste
+        <p className="text-center text-gray-500 mb-10">
+          Pizzas traídas desde nuestra API · Agregá las que quieras al carrito
         </p>
 
-        <div className="flex flex-col gap-5">
-
-          <Link
-            href="/carta/pizzas"
-            className="group bg-white/95 p-5 rounded-xl shadow-lg hover:shadow-2xl transition flex justify-between items-center"
-          >
-            <div>
-              <h2 className="text-lg font-semibold text-gray-800">
-                🍕 Pizzas
-              </h2>
-              <p className="text-sm text-gray-500">
-                Clásicas, especiales y más
-              </p>
-            </div>
-
-            <span className="text-red-500 font-semibold group-hover:translate-x-1 transition">
-              Ver →
-            </span>
-          </Link>
-
-
-          <div
-            className="bg-white/70 p-5 rounded-xl shadow border flex justify-between items-center opacity-60"
-          >
-            <div>
-              <h2 className="text-lg font-semibold text-gray-700">
-                🍔 Hamburguesas
-              </h2>
-              <p className="text-sm text-gray-500">
-                Próximamente disponibles
-              </p>
-            </div>
-
-            <span className="text-gray-400">
-              —
-            </span>
-          </div>
-
+        <div className="grid md:grid-cols-3 gap-8">
+          {pizzas.map((pizza) => (
+            <PizzaCard
+              key={pizza.id}
+              id={pizza.id}
+              nombre={pizza.nombre}
+              descripcion={pizza.descripcion}
+              precio={pizza.precio}
+              imagen={pizza.imagen}
+            />
+          ))}
         </div>
+
       </div>
+
     </div>
   );
-}
+}

@@ -6,7 +6,7 @@ export default function Carrito() {
   const { cart, removeFromCart } = useCart();
 
   const total = cart.reduce(
-    (acum, pizza) => acum + pizza.precio,
+    (acum, pizza) => acum + parseFloat(pizza.precio),
     0
   );
 
@@ -55,7 +55,7 @@ export default function Carrito() {
 
           <div className="mt-8 text-right">
             <h2 className="text-2xl font-bold">
-              Total:{total}
+              Total: ${total.toLocaleString("es-AR")}
             </h2>
           </div>
         </>
