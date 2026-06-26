@@ -55,8 +55,8 @@ También se utilizó LocalStorage para almacenar los pedidos y mantener la infor
 
 ## API Utilizada
 
-* FakeStore API
-La API se utiliza para obtener productos de manera dinámica y mostrarlos dentro de la aplicación.
+* THEMEALDB - Free Recipe API
+La API se utiliza para obtener recetas de manera dinámica y mostrarlos dentro de la aplicación.
 
 ## Grupo
 
